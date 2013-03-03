@@ -8,8 +8,8 @@ Functionality
 
 * Adding services
 
-** WMS
-** Tiling
-** ArcGIS REST
+	* WMS
+	* Tiling
+	* ArcGIS REST
 * Creating users
-** Creating packages for users
+	 * Creating packages for users
