@@ -7,7 +7,7 @@ Functionality
 -------------
 
 * Adding services
-
+Easy and user friendly way of adding services
 	* WMS
 	* Tiling
 	* ArcGIS REST
