@@ -5,3 +5,11 @@ A service to provide content for digital photo frames via zips or RSS feeds. Con
 
 Functionality
 -------------
+
+* Adding services
+
+** WMS
+** Tiling
+** ArcGIS REST
+* Creating users
+** Creating packages for users
