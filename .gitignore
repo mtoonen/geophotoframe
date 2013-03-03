@@ -6,3 +6,7 @@
 *.ear
 /geophotoframe/nbproject/private/
 /libs/
+/geophotoframe/build/
+/securityfilter-b3p/build/
+/securityfilter-b3p/dist/
+/geophotoframe/dist/
