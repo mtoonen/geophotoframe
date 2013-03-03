@@ -10,3 +10,4 @@
 /securityfilter-b3p/build/
 /securityfilter-b3p/dist/
 /geophotoframe/dist/
+/geophotoframe/database/schema-export.sql
