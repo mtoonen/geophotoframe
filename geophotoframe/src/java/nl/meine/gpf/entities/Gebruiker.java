@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import nl.meine.gpf.SecurityRealm;
 
 @Entity
-public class User implements Principal {
+public class Gebruiker implements Principal {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
@@ -23,7 +23,7 @@ public class User implements Principal {
     private String fullname;
     private String email;
     @ManyToMany
-    @JoinTable(joinColumns=@JoinColumn(name="user"), inverseJoinColumns=@JoinColumn(name="role"))
+    @JoinTable(joinColumns=@JoinColumn(name="gebruiker"), inverseJoinColumns=@JoinColumn(name="role"))
     private Set<Role> roles = new HashSet();
     
 
