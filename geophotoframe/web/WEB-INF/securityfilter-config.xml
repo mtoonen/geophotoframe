@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE securityfilter-config PUBLIC
+    "-//SecurityFilter.org//DTD Security Filter Configuration 2.0//EN"
+    "http://www.securityfilter.org/dtd/securityfilter-config_2_0.dtd">
+<securityfilter-config>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>viewer</web-resource-name>
+            <url-pattern>/*</url-pattern>
+            <http-method>POST</http-method>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>user</role-name>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>    
+    
+    <login-config>
+        <!-- Zet op BASIC en commentarieer <form-login-config> voor debuggen met veel reloads -->
+        <auth-method>BASIC</auth-method>
+        <form-login-config>
+            <form-login-page>/login.jsp</form-login-page>
+            <form-error-page>/loginerror.jsp</form-error-page>
+            <form-default-page>/View.action</form-default-page>
+        </form-login-config>
+    </login-config>
+
+    <realm className="nl.meine.gpf.SecurityRealm"/>
+</securityfilter-config>
