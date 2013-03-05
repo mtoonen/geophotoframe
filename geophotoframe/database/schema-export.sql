@@ -1,11 +1,5 @@
 
-    create table role (
-        id int4 not null,
-        role varchar(255),
-        primary key (id)
-    );
-
-    create table user (
+    create table gebruiker (
         id  serial not null,
         email varchar(255),
         fullname varchar(255),
@@ -15,18 +9,24 @@
         primary key (id)
     );
 
-    create table user_roles (
-        user int4 not null,
+    create table gebruiker_roles (
+        gebruiker int4 not null,
         role int4 not null,
-        primary key (user, role)
+        primary key (gebruiker, role)
     );
 
-    alter table user_roles 
-        add constraint FK73429949B42CCE32 
+    create table role (
+        id int4 not null,
+        role varchar(255),
+        primary key (id)
+    );
+
+    alter table gebruiker_roles 
+        add constraint FK693FF3941F22C326 
+        foreign key (gebruiker) 
+        references gebruiker;
+
+    alter table gebruiker_roles 
+        add constraint FK693FF394B42CCE32 
         foreign key (role) 
         references role;
-
-    alter table user_roles 
-        add constraint FK73429949B42FA4DC 
-        foreign key (user) 
-        references user;
