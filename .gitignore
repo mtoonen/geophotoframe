@@ -11,3 +11,7 @@
 /securityfilter-b3p/dist/
 /geophotoframe/dist/
 /geophotoframe/database/schema-export.sql
+/securityfilter-b3p/nbproject/private/
+/b3p-commons-core/nbproject/private/
+/b3p-commons-core/build/
+/b3p-commons-core/dist/
