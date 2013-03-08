@@ -14,10 +14,11 @@ Ext.onReady(function() {
         extend: 'Ext.data.Model',
         fields: [
             {name: 'id', type: 'int'},
-            {name: 'status', type: 'string'},
+            {name: 'description', type: 'string'},
             {name: 'name', type: 'string'},
             {name: 'url', type: 'string'},
-            {name: 'protocol', type: 'string'}
+            {name: 'user', type: 'string'},
+            {name: 'type', type: 'string'}
         ]
     });
 
@@ -74,9 +75,9 @@ Ext.onReady(function() {
                     xtype: 'textfield'
                 }
             }, {
-                id: 'protocol',
+                id: 'type',
                 text: "Type",
-                dataIndex: 'protocol',
+                dataIndex: 'type',
                 flex: 1,
                 filter: {
                     xtype: 'textfield'
@@ -97,14 +98,14 @@ Ext.onReady(function() {
                 flex: 1,
                 sortable: false,
                 hideable: false,
-                menuDisabled: true,
+                menuDisabled: true/*,
                 renderer: function(value) {
                     return Ext.String.format('<a href="' + editattributesurl + '?featureSourceId={0}">Attributen bewerken</a>', value) +
                             ' | ' +
                             Ext.String.format('<a href="#" onclick="return editObject(\'{0}\');">Bewerken</a>', value) +
                             ' | ' +
                             Ext.String.format('<a href="#" onclick="return removeObject(\'{0}\');">Verwijderen</a>', value);
-                },
+                }*/,
                 sortable: false
             }
         ],
