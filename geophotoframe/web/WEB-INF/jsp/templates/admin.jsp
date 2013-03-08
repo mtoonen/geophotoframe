@@ -1,8 +1,4 @@
 <%--
- Geo-OV - applicatie voor het registreren van KAR meldpunten               
-                                                                           
- Copyright (C) 2009-2013 B3Partners B.V.                                   
-                                                                           
  This program is free software: you can redistribute it and/or modify      
  it under the terms of the GNU Affero General Public License as            
  published by the Free Software Foundation, either version 3 of the        
@@ -28,6 +24,8 @@
     <head>
         <title><fmt:message key="index.title"/></title>
         <script type="text/javascript"></script>
+        <script type="text/javascript" src="${contextPath}/scripts/ext-all.js"></script>
+        <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/ext-all-gray.css">
         <link rel="stylesheet" href="${contextPath}/styles/geo-photo-frame.css" type="text/css" media="screen" />
         <stripes:layout-component name="head"/>        
     </head>

@@ -7,7 +7,6 @@
 <%@taglib prefix="security" uri="http://www.stripes-stuff.org/security.tld" %>
 
 <%@taglib uri="http://commons.b3p.nl/jstl-functions" prefix="f" %>
-<%--@taglib prefix="js" uri="http://www.b3partners.nl/taglibs/js-quote" --%>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
