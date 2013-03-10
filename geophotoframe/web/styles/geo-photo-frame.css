@@ -32,12 +32,6 @@ select {
     font-size: 8pt;
 }
 
-body.editor {
-    width: 100%;
-    min-height: 850px;
-    min-width: 963px;
-}
-
 #header {
     background-color: #D9E7F8;
     color: Black;
@@ -73,77 +67,6 @@ body.editor {
     text-decoration: none;
 }
 
-.navimg {
-    vertical-align: top;
-    margin-right: 1px;
-}
-#gebruikerScroller {
-    max-height: 180px;
-    overflow: auto;
-    width: 750px;
-    border: 1px solid;
-}
-
-#gebruikerScroller table, .tableheader {
-    font-size: 8pt;
-    border-collapse: collapse;
-    border: 0px;
-}
-
-.tableheader {
-    width: 750px;
-}
-
-.tableheader th {
-    border: 1px solid;
-    border-bottom: 0px none;
-    padding: 3px;
-    font-weight: bold;
-}
-
-#gebruikerScroller table td, #gebruikerScroller table th {
-    border: 1px solid;
-    padding: 3px;
-}
-
-#gebruikerScroller table tr:first-child td {
-    border-top: 0px;
-}
-
-#gebruikerScroller table tr:last-child td {
-    border-bottom: 0px;
-}
-
-#gebruikerScroller table td:first-child {
-    border-left: 0px;
-}
-
-#legend {
-    padding: 5px;
-}
-
-.legendimg {
-    width: 20px;
-    vertical-align: middle;
-    margin-top: 3px;
-    margin-left: 5px;
-    margin-right: 3px;
-}
-
-.legendseparator {
-    margin-bottom: 8px;
-}
-
-.x-border-layout-ct {
-    background-color: #CCCCCC;
-}
-
-
-.resultlink {
-    color: #0000EE;
-    display: block;
-    margin-bottom: 2px;
-}
 
 #kaart{
     height: 100%;
@@ -151,4 +74,9 @@ body.editor {
 
 .errors_box{
     color: #b72222;
+}
+
+#grid-container{
+    height: 300px;
+    width:100%;
 }
