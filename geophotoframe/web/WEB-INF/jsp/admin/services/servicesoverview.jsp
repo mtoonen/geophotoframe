@@ -23,6 +23,8 @@
         <script lang="JavaScript">
             var uxpath = '${contextPath}/scripts/ux';
             var gridurl = '<stripes:url beanclass="nl.meine.gpf.stripes.ServiceActionBean" event="getGridData"/>';
+            var editserviceUrl = '<stripes:url beanclass="nl.meine.gpf.stripes.ServiceActionBean" event="edit"/>';
+            var removeserviceUrl = '<stripes:url beanclass="nl.meine.gpf.stripes.ServiceActionBean" event="remove"/>';
             Ext.Loader.setPath('Ext.ux', uxpath);
             
         </script>
