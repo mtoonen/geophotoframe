@@ -24,6 +24,7 @@
     <stripes:layout-component name="content">
         <h1>Edit service</h1>
         <stripes:form beanclass="nl.meine.gpf.stripes.ServiceActionBean">
+            <stripes:hidden name="service.id"/>
             <table>
                 <tr>
                     <td>Name*</td><td><stripes:text name="service.name"/></td>
