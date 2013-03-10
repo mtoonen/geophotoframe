@@ -78,10 +78,7 @@ Ext.onReady(function() {
                 id: 'type',
                 text: "Type",
                 dataIndex: 'type',
-                flex: 1,
-                filter: {
-                    xtype: 'textfield'
-                }
+                flex: 1
             },
             {
                 id: 'user',
@@ -98,22 +95,20 @@ Ext.onReady(function() {
                 flex: 1,
                 sortable: false,
                 hideable: false,
-                menuDisabled: true/*,
+                menuDisabled: true,
                 renderer: function(value) {
-                    return Ext.String.format('<a href="' + editattributesurl + '?featureSourceId={0}">Attributen bewerken</a>', value) +
+                    return Ext.String.format('<a href="' + editserviceUrl + '?service={0}">Edit service</a>', value) +
                             ' | ' +
-                            Ext.String.format('<a href="#" onclick="return editObject(\'{0}\');">Bewerken</a>', value) +
-                            ' | ' +
-                            Ext.String.format('<a href="#" onclick="return removeObject(\'{0}\');">Verwijderen</a>', value);
-                }*/,
+                            Ext.String.format('<a href="' + removeserviceUrl + '?service={0}" onclick="return removeService()">Remove service</a>', value) 
+                },
                 sortable: false
             }
         ],
         bbar: Ext.create('Ext.PagingToolbar', {
             store: store,
             displayInfo: true,
-            displayMsg: 'Attribuutbron {0} - {1} of {2}',
-            emptyMsg: "Geen attribuutbronnen weer te geven"
+            displayMsg: 'Service {0} - {1} of {2}',
+            emptyMsg: "No services to show"
         }),
         plugins: [
             Ext.create('Ext.ux.grid.GridHeaderFilters', {
@@ -129,3 +124,7 @@ Ext.onReady(function() {
         }
     }));
 });
+
+function removeService(){
+    return confirm("Are you sure you want to remove this service?");
+}
