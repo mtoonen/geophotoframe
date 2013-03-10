@@ -2,16 +2,19 @@ package nl.meine.gpf.stripes;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Iterator;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletResponse;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
+import net.sourceforge.stripes.action.Before;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.StreamingResolution;
+import net.sourceforge.stripes.action.StrictBinding;
+import net.sourceforge.stripes.action.UrlBinding;
+import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.validation.SimpleError;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
@@ -19,12 +22,9 @@ import nl.meine.gpf.entities.Gebruiker;
 import nl.meine.gpf.entities.Geoservice;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.geotools.data.FeatureSource;
 import org.geotools.data.ows.Layer;
 import org.geotools.data.ows.WMSCapabilities;
-import org.geotools.data.wfs.v1_1_0.WFSFeatureSource;
 import org.geotools.data.wms.WebMapServer;
-import org.geotools.jdbc.JDBCFeatureSource;
 import org.geotools.ows.ServiceException;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -35,25 +35,27 @@ import org.hibernate.criterion.Restrictions;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.stripesstuff.stripersist.EntityTypeConverter;
 import org.stripesstuff.stripersist.Stripersist;
 
 /**
  *
  * @author Meine Toonen
  */
+@StrictBinding
+@UrlBinding("/action/Service/{$event}")
 public class ServiceActionBean implements ActionBean {
 
     private static final Log log = LogFactory.getLog(ServiceActionBean.class);
     private ActionBeanContext context;
     private static final String OVERVIEW = "/WEB-INF/jsp/admin/services/servicesoverview.jsp";
     private static final String EDIT = "/WEB-INF/jsp/admin/services/edit.jsp";
-    @Validate(converter = EntityTypeConverter.class)
+    @Validate(on="edit")
     @ValidateNestedProperties({
-        @Validate(field = "name", required = true, on = "save"),
-        @Validate(field = "description", required = true, on = "save"),
-        @Validate(field = "url", required = true, on = "save"),
-        @Validate(field = "type", required = true, on = "save")
+        @Validate(field = "id", on = {"save"} ),
+        @Validate(field = "name", required = true, on = {"save"} ),
+        @Validate(field = "description", required = true, on = {"save"} ),
+        @Validate(field = "url", required = true, on = {"save"} ),
+        @Validate(field = "type", required = true, on = {"save"} )
     })
     private Geoservice service;
     // Used for filtering
@@ -79,6 +81,14 @@ public class ServiceActionBean implements ActionBean {
     public Resolution add() {
         return new ForwardResolution(EDIT);
 
+    }
+    
+    public Resolution edit(){
+        return new ForwardResolution(EDIT);
+    }
+    
+    public Resolution remove(){
+        return new ForwardResolution(EDIT);
     }
 
     public Resolution save() {
@@ -110,6 +120,19 @@ public class ServiceActionBean implements ActionBean {
         return new ForwardResolution(OVERVIEW);
 
     }
+    
+    @Before(stages = LifecycleStage.BindingAndValidation, on = "save")
+    private void loadEntities(){
+        EntityManager em = Stripersist.getEntityManager();
+        String id = context.getRequest().getParameter("service.id");
+        try{
+            Integer intId = Integer.parseInt(id);
+            service = em.find(Geoservice.class,intId);
+        }catch(NumberFormatException ex){
+            
+        }
+        int a = 0;
+    }
 
     public Resolution getGridData() throws JSONException {
         JSONArray jsonData = new JSONArray();
@@ -135,7 +158,7 @@ public class ServiceActionBean implements ActionBean {
                 if (property.equals("url")) {
                     filterUrl = value;
                 }
-                if (property.equals("protocol")) {
+                if (property.equals("type")) {
                     filterType = value;
                 }
                 if (property.equals("user")) {
@@ -174,7 +197,7 @@ public class ServiceActionBean implements ActionBean {
             c.add(urlCrit);
         }
         if (filterType != null && filterType.length() > 0) {
-            Criterion protocolCrit = Restrictions.ilike("type", filterType, MatchMode.ANYWHERE);
+            Criterion protocolCrit = Restrictions.ilike("type.description", filterType, MatchMode.ANYWHERE);
             c.add(protocolCrit);
         }
         if (filterDescription != null && filterDescription.length() > 0) {
@@ -195,7 +218,7 @@ public class ServiceActionBean implements ActionBean {
 
         for (Geoservice geoservice : services) {
            
-            JSONObject j = this.getGridRow(geoservice.getId().intValue(), geoservice.getName(), geoservice.getUrl(), geoservice.getType().getDescription());
+            JSONObject j = this.getGridRow(geoservice.getId().intValue(), geoservice.getName(), geoservice.getDescription(), geoservice.getUrl(), geoservice.getType().getDescription(), geoservice.getGebruiker());
             jsonData.put(j);
         }
         final JSONObject grid = new JSONObject();
@@ -209,12 +232,14 @@ public class ServiceActionBean implements ActionBean {
         };
     }
 
-    private JSONObject getGridRow(int i, String name, String url, String type) throws JSONException {
+    private JSONObject getGridRow(int i, String name, String description, String url, String type, Gebruiker user) throws JSONException {
         JSONObject j = new JSONObject();
         j.put("id", i);
         j.put("name", name);
+        j.put("description", description);
         j.put("url", url);
         j.put("type", type);
+        j.put("user", user.getFullname());
         return j;
     }
 
